@@ -1,0 +1,253 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Save the Date — Rahman & Zaynab</title>
+
+  <!-- Fonts -->
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Great+Vibes&display=swap"
+    rel="stylesheet"
+  />
+
+  <style>
+    :root {
+      --bg: #1a1207;
+      --gold-gradient: linear-gradient(135deg,#b8860b,#ffd700,#ffecb3);
+      --accent-dark: #4a320a;
+    }
+
+    html, body {
+      min-height: 100%;
+      margin: 0;
+      background: radial-gradient(circle at top left, #2d1e0f, #0f0a05);
+      font-family: 'Cinzel Decorative', serif;
+      color: white;
+      overflow-x: auto;   /* allow horizontal scroll if card is wider */
+      overflow-y: auto;   /* allow vertical scroll if needed */
+    }
+
+    .scene {
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      position: relative;
+    }
+
+    .card {
+      width: 720px;
+      height: 480px;
+      perspective: 1200px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .outer {
+      width: 100%;
+      height: 100%;
+      transform-style: preserve-3d;
+      transition: transform 1s cubic-bezier(.2,.9,.25,1);
+      cursor: pointer;
+      border-radius: 24px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.7);
+    }
+
+    .outer.open {
+      transform: rotateY(180deg) translateY(-6px) scale(1.04);
+    }
+
+    .panel {
+      position: absolute;
+      inset: 0;
+      border-radius: 24px;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      backface-visibility: hidden;
+      -webkit-backface-visibility: hidden;
+    }
+
+    /* FRONT */
+    .front {
+      background: var(--gold-gradient);
+      border: 6px solid #fff3b0;
+    }
+    .front .inner-card {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      backdrop-filter: blur(2px);
+    }
+    .names {
+      font-family: 'Great Vibes', cursive;
+      font-size: 42px;
+      background: var(--gold-gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: shimmer 5s infinite linear;
+      background-size: 200% auto;
+      margin: 0;
+    }
+    h1 {
+      font-size: 44px;
+      margin: 8px 0 0;
+      letter-spacing: 2px;
+      color: var(--accent-dark);
+      text-shadow: 1px 1px 2px #fff7d6;
+      background: var(--gold-gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: shimmer 4s infinite linear;
+      background-size: 200% auto;
+    }
+
+    /* BACK */
+    .back {
+      transform: rotateY(180deg);
+      background: var(--gold-gradient);
+      border: 6px solid #fff3b0;
+      padding: 36px;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .back::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.35), transparent 60%);
+      pointer-events: none;
+    }
+    .back .inner-card {
+      width: 100%;
+      height: 100%;
+      border-radius: 18px;
+      background: rgba(255,248,220,0.9);
+      border: 3px solid #ffd700;
+      box-shadow: inset 0 10px 40px rgba(184,134,11,0.4);
+      padding: 36px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      backdrop-filter: blur(2px);
+    }
+    .seal {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      background: conic-gradient(from 200deg,#ffd700,#ffecb3,#d4af37);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      color: var(--accent-dark);
+      box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+      font-size: 28px;
+      animation: shimmer 3s infinite linear;
+      background-size: 200% auto;
+    }
+    .date {
+      font-size: 20px;
+      text-align: center;
+      color: #5a3a00;
+      font-weight: 600;
+    }
+    .note {
+      font-size: 16px;
+      color: #7a5a2b;
+      text-align: center;
+      font-style: italic;
+    }
+    .pattern {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background-image: radial-gradient(rgba(255,240,200,0.1) 1px, transparent 1px);
+      background-size: 20px 20px;
+      border-radius: 24px;
+    }
+    .sparkle {
+      position: absolute;
+      width: 4px;
+      height: 4px;
+      background: #fff8dc;
+      border-radius: 50%;
+      box-shadow: 0 0 8px 2px #ffd700;
+      animation: twinkle 3s infinite;
+    }
+    @keyframes shimmer {
+      0%   { background-position: 0% center; }
+      100% { background-position: 200% center; }
+    }
+    @keyframes twinkle {
+      0%,100% { opacity: 0; transform: scale(0.5); }
+      50%     { opacity: 1; transform: scale(1.2); }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="scene">
+    <div class="card">
+      <div class="outer" id="outer" title="Click to flip & play tune">
+        <!-- FRONT -->
+        <div class="panel front">
+          <div class="inner-card">
+            <div class="names">Rahman &amp; Zaynab</div>
+            <h1>Save the Date</h1>
+          </div>
+        </div>
+        <!-- BACK -->
+        <div class="panel back">
+          <div class="inner-card">
+            <div style="text-align:center;">
+              <div class="seal">💍</div>
+              <h1>Save the Date</h1>
+              <div class="note">We joyfully invite you to the wedding of</div>
+              <div class="names">Rahman &amp; Zaynab</div>
+              <div class="date">Nikkah — Friday — 17th April 2026</div>
+              <div class="date">Walima — Sunday — 19th April 2026</div>
+              <div class="note">Formal invitation to follow</div>
+            </div>
+          </div>
+        </div>
+        <div class="pattern"></div>
+      </div>
+    </div>
+
+    <!-- Sparkles -->
+    <div class="sparkle" style="top:10%; left:20%;"></div>
+    <div class="sparkle" style="top:30%; left:70%; animation-delay:1s;"></div>
+    <div class="sparkle" style="top:60%; left:40%; animation-delay:2s;"></div>
+    <div class="sparkle" style="top:80%; left:80%; animation-delay:1.5s;"></div>
+    <div class="sparkle" style="top:50%; left:10%; animation-delay:0.5s;"></div>
+  </div>
+
+  <footer>Click card to flip &amp; play tune</footer>
+
+  <!-- Audio -->
+  <audio id="weddingAudio" src="still_game.mp3" preload="auto"></audio>
+
+  <script>
+    const outer = document.getElementById('outer');
+    const audio = document.getElementById('weddingAudio');
+
+    outer.addEventListener('click', () => {
+      const isOpening = !outer.classList.contains('open');
+      outer.classList.toggle('open');
+      if (isOpening) {
+        audio.currentTime = 0;
+        audio.play();
+      }
+    });
+  </script>
+</body>
+</html>
